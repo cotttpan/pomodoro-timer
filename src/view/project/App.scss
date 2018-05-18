@@ -1,0 +1,44 @@
+[data-scope="app"] {
+  /* layout
+  --------------------------------------- */
+  &.g-container {
+    display: grid;
+    height: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    grid-gap: 10px;
+    grid-template-rows: 1fr minmax(250px, 2fr);
+
+    @include screen-up(lg) {
+      padding: 15px;
+      grid-gap: 15px;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 100%;
+    }
+  }
+
+  &.g-area-pomodoro-timer {
+    @include screen-up(lg) {
+      order: 1;
+    }
+  }
+
+  &.g-area-todolist {
+    @include screen-up(lg) {
+      order: 0;
+    }
+  }
+
+  /* project
+  --------------------------------------- */
+  &.widget-board {
+    overflow: hidden;
+    height: 100%;
+    padding: 15px;
+    background: $md-white;
+  }
+
+  &.widget-board-inner {
+    height: 100%;
+  }
+}

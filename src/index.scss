@@ -1,0 +1,63 @@
+/* Vars
+----------------------------------------------------------- */
+@import "~material-colors/dist/colors";
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;
+
+/* Mixins / Functions
+----------------------------------------------------------- */
+@import "~sass-mediaqueries/media-queries";
+
+@mixin screen-up($size) {
+  @include min-screen(map-get($grid-breakpoints, $size)) {
+    @content;
+  }
+}
+
+/* Base
+----------------------------------------------------------- */
+@import "~modern-normalize/modern-normalize.css";
+
+html,
+body,
+#root {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background: $md-grey-100;
+  font-size: 62.5%; /* 1.0em = 10px */
+}
+
+#root {
+  color: $md-dark-text-primary;
+  font-size: 1.6rem;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+/* Propejct
+----------------------------------------------------------- */
+@import "./view/project/**/*.scss";
+
+/* Utils
+----------------------------------------------------------- */
+.u-fill {
+  width: 100%;
+  height: 100%;
+}
+
+.u-block {
+  display: block;
+}
+
+.u-inline-block {
+  display: inline-block;
+}

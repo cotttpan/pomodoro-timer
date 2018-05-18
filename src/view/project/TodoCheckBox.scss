@@ -1,0 +1,11 @@
+[data-scope="todo-check-box"] {
+  .checkbox-icon {
+    color: $md-dark-text-secondary;
+    cursor: pointer;
+    font-size: 2.5rem;
+
+    &[data-is-checked="true"] {
+      color: $md-blue-500 !important;
+    }
+  }
+}

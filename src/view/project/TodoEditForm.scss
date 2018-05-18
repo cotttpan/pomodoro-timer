@@ -1,0 +1,15 @@
+[data-scope="todo-edit-form"] {
+  &.input {
+    width: 100%;
+    padding: 3px 10px;
+    border: 1px solid $md-grey-400;
+    background: transparent;
+    border-radius: 5px;
+
+    &:focus {
+      border: 1px solid $md-blue-300;
+      background: $md-white;
+      outline: none;
+    }
+  }
+}

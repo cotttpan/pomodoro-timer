@@ -1,0 +1,15 @@
+{
+  "javascript.validate.enable": true,
+  "typescript.tsdk": "./node_modules/typescript/lib",
+  "tslint.exclude": ["**/public/**", "**/node_modules/**"],
+  "files.exclude": {
+    ".awcache": true,
+    "**/dist/**": false,
+    "**/*bundle.*/**": true,
+    "node_modules": true,
+    "typings": false,
+    "**/*.d.ts": false
+  },
+  "prettier.stylelintIntegration": true,
+  "prettier.disableLanguages": ["typescript", "typescriptreact", "javascript"]
+}
