@@ -1,4 +1,4 @@
-import { map } from 'rxjs/operators'
+import { map, debounceTime } from 'rxjs/operators'
 import { factory, EventSource, select } from 'command-bus'
 import { constant } from '@cotto/utils.ts'
 import { Storage } from '@/lib/storage'
@@ -45,9 +45,10 @@ export interface TodoFormExternalApi {
   repo: TodoFormRepository
 }
 
-export const todoListService = (ev: EventSource, api: TodoFormExternalApi) => {
+export const todoFormService = (ev: EventSource, api: TodoFormExternalApi) => {
   return select(ev, TODO_FORM.INPUT.PATCH).pipe(
     map(command => command.payload),
+    debounceTime(10),
     map(patch => api.repo.update(patch)),
     map(TODO_FORM.OUTPUT.CHANGE),
   )
