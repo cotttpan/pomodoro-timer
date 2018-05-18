@@ -7,13 +7,14 @@ import { TodoRepository } from './repository'
 import * as entity from './entity'
 import { INPUT, OUTPUT } from './command'
 
-export interface Api {
-  repo: TodoRepository
+export interface TodoExternalApi {
   getAllUnCompletedTodos(): Promise<entity.Todo[]>
   addTodo(todo: entity.Todo): Promise<entity.Todo>
   updateTodo(todo: entity.Todo): Promise<entity.Todo>
   deleteTodo(todo: entity.Todo): Promise<entity.Todo>
 }
+
+export type Api = TodoExternalApi & { repo: TodoRepository }
 
 export const bootEpic = (_ev: EventSource, api: Api) => {
   return from(api.getAllUnCompletedTodos()).pipe(
