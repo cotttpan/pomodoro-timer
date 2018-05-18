@@ -1,8 +1,8 @@
-import { Todo, Api as TodoCrudApi } from '@/model/todos'
+import { TodoExternalApi, Todo } from '@/domain/todo'
 import IDB from './db'
 import { omit } from '@cotto/utils.ts'
 
-export default (idb: IDB): TodoCrudApi => ({
+export const todoExternalApiImple = (idb: IDB): TodoExternalApi => ({
   getAllUnCompletedTodos(): Promise<Todo[]> {
     return idb.transaction('r', idb.todos, async () => {
       return idb.todos.toCollection()

@@ -1,5 +1,5 @@
 import Dexie from 'dexie'
-import { Todo } from '@/model/todos'
+import { Todo } from '@/domain/todo'
 import { Overwrite } from '@cotto/utils.ts'
 
 export interface DBOptions {
