@@ -24,6 +24,7 @@ export const OUTPUT = {
   RESET: output<S>('RESET'),
   NOTIFICATION_SEND: output<S>('NOTIFICATION_SEND'),
   NOTIFICATION_CLOSE: output<S>('NOTIFICATION_CLOSE'),
+  CHANGE: output<S>('CHANGE'),
 }
 
 export const POMODORO_TIMER = {
