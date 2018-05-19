@@ -16,7 +16,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   entry: {
     app: ['./index.ts', './index.scss'],
-    vendor: ['react', 'react-dom', 'redux', 'dexie'],
+    // vendor: ['react', 'react-dom', 'redux', 'dexie'],
   },
   output: {
     path: path.join(__dirname, 'public'),
@@ -65,18 +65,18 @@ module.exports = {
       '@': path.resolve(__dirname, 'src'),
     },
   },
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        vendor: {
-          test: 'vendor',
-          name: 'vendor',
-          chunks: 'initial',
-          enforce: true,
-        },
-      },
-    },
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     cacheGroups: {
+  //       vendor: {
+  //         test: 'vendor',
+  //         name: 'vendor',
+  //         chunks: 'initial',
+  //         enforce: true,
+  //       },
+  //     },
+  //   },
+  // },
   devtool: isProd ? 'none' : 'inline-source-map',
   devServer: {
     contentBase: 'public',
