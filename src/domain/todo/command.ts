@@ -1,8 +1,8 @@
 import { factory } from 'command-bus'
 import { TodosDomainState as S, Todo } from './entity'
 
-const input = factory('TODOS/INPUT/')
-const output = factory('TODOS/OUTPUT/')
+const input = factory('TODO/INPUT/')
+const output = factory('TODO/OUTPUT/')
 
 export const INPUT = {
   ADD: input<{ content: string }>('ADD'),
