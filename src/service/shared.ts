@@ -2,7 +2,6 @@ import { factory } from 'command-bus'
 import { APP_SESSION, createAppSessionRepository } from '@/domain/app-session'
 import { POMODORO_TIMER, createPomodoroTimerRepository } from '@/domain/pomodoro-timer'
 import { TODO, createTodoReposiory } from '@/domain/todo'
-import { TODOLIST, createTodoListRepository } from '@/domain/todolist'
 import { TODO_FORM, createTodoFormRepository } from '@/domain/todo-form'
 
 //
@@ -13,7 +12,6 @@ export const createRepsitoryGroup = () => ({
   appSession: createAppSessionRepository(),
   pomodoroTimer: createPomodoroTimerRepository(),
   todo: createTodoReposiory(),
-  todolist: createTodoListRepository(),
   todoForm: createTodoFormRepository(),
 })
 
@@ -48,6 +46,5 @@ export {
   APP_SESSION,
   POMODORO_TIMER,
   TODO,
-  TODOLIST,
   TODO_FORM,
 }

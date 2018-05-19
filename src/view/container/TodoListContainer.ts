@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { Dispatch, connect } from 'react-redux'
 import { createReducer, caseOf } from 'typed-reducer'
+import { values } from '@cotto/utils.ts'
 import { Todo } from '@/domain/todo'
-import { INTENTS, TODOLIST, POMODORO_TIMER, APP_SESSION, TODO_FORM } from '@/service'
+import { INTENTS, TODO, POMODORO_TIMER, APP_SESSION, TODO_FORM } from '@/service'
 import getDatasetIn from '@/lib/getDatasetIn'
 
 export interface TodoListState {
@@ -37,13 +38,13 @@ const init = (): TodoListState => ({
 
 
 export const todoListReducer = createReducer(init)(
-  caseOf(
-    TODOLIST.OUTPUT.CHANGE,
-    (state, action) => {
-      const todos = action.payload.list
-      return { ...state, todos }
-    },
-  ),
+  // caseOf(
+  //   TODOLIST.OUTPUT.CHANGE,
+  //   (state, action) => {
+  //     const todos = action.payload.list
+  //     return { ...state, todos }
+  //   },
+  // ),
   caseOf(POMODORO_TIMER.OUTPUT.CHANGE, (state, action) => {
     const { isWorking, isPausing } = action.payload
     const isPomodoroTimerStartable = !isWorking && !isPausing
@@ -65,6 +66,40 @@ export const todoListReducer = createReducer(init)(
       return { ...state, currentEditingTodoId }
     },
   ),
+  caseOf(
+    TODO.OUTPUT.BOOT,
+    (state, action) => {
+      const todos = values(action.payload).sort((a, b) => b.id - a.id)
+      return { ...state, todos }
+    },
+  ),
+  caseOf(
+    TODO.OUTPUT.ADD,
+    (state, action) => {
+      const todos = [action.payload, ...state.todos]
+      return { ...state, todos }
+    },
+  ),
+  caseOf(
+    TODO.OUTPUT.UPDATE,
+    (state, action) => {
+      const idx = state.todos.findIndex(todo => todo.id === action.payload.id)
+      const todos = [...state.todos.slice(0, idx), action.payload, ...state.todos.slice(idx + 1)]
+      const currentEditingTodoId = null
+      return { ...state, todos, currentEditingTodoId }
+    }),
+  caseOf(
+    TODO.OUTPUT.DELETE,
+    (state, action) => {
+      const todos = state.todos.filter(todo => todo.id !== action.payload.id)
+      return { ...state, todos }
+    },
+  ),
+  caseOf(INTENTS.CLEAN_COMPLETED_TODOS, state => {
+    const todos = state.todos.filter(todo => !todo.completed)
+    return { ...state, todos }
+  }),
+
 )
 
 

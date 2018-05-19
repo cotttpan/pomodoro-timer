@@ -6,7 +6,6 @@ import { createDatabase, createInfraApi } from '@/infra'
 import { bootAppSessionService } from './app-session'
 import { bootPomodoroTimerAppService } from './pomodoro-timer'
 import { bootTodoService } from './todo'
-import { bootTodoListService } from './todolist'
 import { bootTodoFormService } from './todo-form'
 
 
@@ -21,7 +20,6 @@ export const service = (ev: EventSource) => {
     bootAppSessionService(ev, repo),
     bootPomodoroTimerAppService(ev, repo),
     bootTodoService(ev, repo, infraApi),
-    bootTodoListService(ev, repo),
     bootTodoFormService(ev, repo),
   )
 }
