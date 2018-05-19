@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Dispatch } from 'react-redux'
-import { connectTodoEditFormStore } from '@/store/todoEditoForm'
-import { INTENTS } from '@/service'
+import { Dispatch, connect } from 'react-redux'
+import { createReducer, caseOf } from 'typed-reducer'
+import { INTENTS, TODO_FORM } from '@/service'
 
 export interface TodoEditFormState {
   todoId?: number
@@ -23,6 +23,34 @@ export interface TodoEntryFormProps extends TodoEditFormState {
   dispatch: Dispatch<any>
 }
 
+//
+// ─── STORE ──────────────────────────────────────────────────────────────────────
+//
+export interface TodoEditFormStoreState {
+  todoEditForm: TodoEditFormState
+}
+
+const selectTodoEditFormState = (state: TodoEditFormStoreState) => {
+  return state.todoEditForm
+}
+
+const init = (): TodoEditFormState => ({
+  value: '',
+})
+
+export const todoEditFormReducer = createReducer(init)(
+  caseOf(
+    TODO_FORM.OUTPUT.CHANGE,
+    (state, action) => {
+      const { editingTodoId, editingTodoContent } = action.payload
+      return { ...state, todoId: editingTodoId, value: editingTodoContent || '' }
+    },
+  ),
+)
+
+//
+// ─── CONTAINER ──────────────────────────────────────────────────────────────────
+//
 export class TodoEntryFormContainer extends React.PureComponent<TodoEntryFormProps> {
   inputRef = React.createRef<HTMLInputElement>()
 
@@ -35,7 +63,7 @@ export class TodoEntryFormContainer extends React.PureComponent<TodoEntryFormPro
     submit: (ev: React.FormEvent<HTMLFormElement>) => {
       ev.preventDefault()
       const payload = { id: this.props.todoId, content: this.props.value }
-      return this.props.dispatch(INTENTS.UPDATE_TODO(payload))
+      return this.props.dispatch(INTENTS.UPDATE_TODO_CONTENT(payload))
     },
     close: (_ev: React.FormEvent<HTMLInputElement>) => {
       const emit = () => this.props.dispatch(INTENTS.CLOSE_TODO_EDIT_FORM())
@@ -53,4 +81,4 @@ export class TodoEntryFormContainer extends React.PureComponent<TodoEntryFormPro
   }
 }
 
-export default connectTodoEditFormStore(TodoEntryFormContainer)
+export default connect(selectTodoEditFormState)(TodoEntryFormContainer)
