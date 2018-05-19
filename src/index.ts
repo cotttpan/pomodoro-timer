@@ -5,12 +5,12 @@ import { requestNotificationPermission } from '@/lib/notification'
 // ─── BOOT APP ───────────────────────────────────────────────────────────────────────
 //
 (async function bootApp() {
-  const [store, service, view] = await Promise.all([
+  const [{ store }, { service }, { view }] = await Promise.all([
     import('@/store'),
     import('@/service'),
     import('@/view'),
   ])
-  const tree = view.default(store.default(service.default))
+  const tree = view(store(service))
   const root = document.querySelector('#root')
   render(tree, root)
   /* notification */

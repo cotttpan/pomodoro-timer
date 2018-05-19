@@ -18,7 +18,7 @@ export type AppState =
   & TodoListStoreState
 
 
-export default (rootEpic: Epic<AppState>) => {
+export const store = (rootEpic: Epic<AppState>) => {
   return createStore(
     /* reducer */
     combineReducers<AppState>({

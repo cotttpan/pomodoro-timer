@@ -25,6 +25,3 @@ export const service = (ev: EventSource) => {
     bootTodoFormService(ev, repo),
   )
 }
-
-
-export default service
