@@ -7,6 +7,9 @@ import { bootAppSessionService } from './app-session'
 import { bootPomodoroTimerAppService } from './pomodoro-timer'
 import { bootTodoService } from './todo'
 import { bootTodoListService } from './todolist'
+import { bootTodoFormService } from './todo-form'
+
+
 export * from './shared'
 
 export const service = (ev: EventSource) => {
@@ -19,6 +22,7 @@ export const service = (ev: EventSource) => {
     bootPomodoroTimerAppService(ev, repo),
     bootTodoService(ev, repo, infraApi),
     bootTodoListService(ev, repo),
+    bootTodoFormService(ev, repo),
   )
 }
 
