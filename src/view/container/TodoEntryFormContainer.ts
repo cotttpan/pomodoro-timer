@@ -1,7 +1,7 @@
 import * as React from 'react'
-import { Dispatch } from 'react-redux'
-import { connectTodoEntryFormStore } from '@/store/todoEntryForm'
-import { INTENTS } from '@/service'
+import { connect, Dispatch } from 'react-redux'
+import { createReducer, caseOf } from 'typed-reducer'
+import { INTENTS, TODO_FORM } from '@/service'
 
 export interface TodoEntryFormState {
   value: string
@@ -12,6 +12,29 @@ export interface TodoEntryFormAction {
   submit: React.EventHandler<React.FormEvent<HTMLFormElement>>
 }
 
+//
+// ─── STORE ──────────────────────────────────────────────────────────────────────
+//
+export interface TodoEntryFormStoreState {
+  todoEntryForm: TodoEntryFormState
+}
+
+const selectState = (state: TodoEntryFormStoreState) => state.todoEntryForm
+
+export const todoEntryFormReducer = createReducer((): TodoEntryFormState => ({ value: '' }))(
+  caseOf(
+    TODO_FORM.OUTPUT.CHANGE,
+    (state, action) => {
+      const value = action.payload.newEntryTodoContent || ''
+      return { ...state, value }
+    },
+  ),
+)
+
+
+//
+// ─── CONTEINER ──────────────────────────────────────────────────────────────────
+//
 export interface TodoEntryFormProps extends TodoEntryFormState {
   children: (props: TodoEntryFormProps & { ref: React.RefObject<any> }, actions: TodoEntryFormAction) => React.ReactNode
   dispatch: Dispatch<any>
@@ -27,7 +50,7 @@ export class TodoEntryFormContainer extends React.PureComponent<TodoEntryFormPro
     submit: (ev: React.FormEvent<HTMLFormElement>) => {
       ev.preventDefault()
       const payload = { content: this.props.value }
-      return this.props.dispatch(INTENTS.ADD_TODO(payload))
+      return this.props.dispatch(INTENTS.ADD_NEW_TODO(payload))
     },
   }
   componentDidMount() {
@@ -40,4 +63,4 @@ export class TodoEntryFormContainer extends React.PureComponent<TodoEntryFormPro
   }
 }
 
-export default connectTodoEntryFormStore(TodoEntryFormContainer)
+export default connect(selectState)(TodoEntryFormContainer)

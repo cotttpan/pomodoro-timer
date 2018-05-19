@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { identity } from '@cotto/utils.ts'
 import { PomodoroTimerStoreState, pomodoroTimerReducer } from '@/view/container/PomodoroTimerContainer'
 import { TodoEditFormStoreState, todoEditFormReducer } from '@/view/container/TodoEditFormContainer'
+import { TodoEntryFormStoreState, todoEntryFormReducer } from '@/view/container/TodoEntryFormContainer'
 
 const withDevtools: Function = process.env.NODE_ENV === 'production'
   ? identity
@@ -12,6 +13,8 @@ const withDevtools: Function = process.env.NODE_ENV === 'production'
 export type AppState =
   & PomodoroTimerStoreState
   & TodoEditFormStoreState
+  & TodoEntryFormStoreState
+
 
 export default (rootEpic: Epic<AppState>) => {
   return createStore(
@@ -19,6 +22,7 @@ export default (rootEpic: Epic<AppState>) => {
     combineReducers<AppState>({
       pomodoroTimer: pomodoroTimerReducer,
       todoEditForm: todoEditFormReducer,
+      todoEntryForm: todoEntryFormReducer,
     }),
     /* middleware */
     withDevtools(
