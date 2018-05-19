@@ -1,9 +1,9 @@
 import * as React from 'react'
-import { Dispatch } from 'react-redux'
-import { Todo } from '@/model/todos'
-import { INTENTS } from '@/service'
+import { Dispatch, connect } from 'react-redux'
+import { createReducer, caseOf } from 'typed-reducer'
+import { Todo } from '@/domain/todo'
+import { INTENTS, TODOLIST, POMODORO_TIMER, APP_SESSION, TODO_FORM } from '@/service'
 import getDatasetIn from '@/lib/getDatasetIn'
-import { connectTodoListStore } from '@/store/todolist'
 
 export interface TodoListState {
   todos: Todo[]
@@ -19,6 +19,58 @@ export interface TodolistActions {
   openTodoEditForm: React.EventHandler<React.MouseEvent<any>>
 }
 
+//
+// ─── STORE ──────────────────────────────────────────────────────────────────────
+//
+export interface TodoListStoreState {
+  todoList: TodoListState
+}
+
+const selectState = (state: TodoListStoreState) => state.todoList
+
+const init = (): TodoListState => ({
+  todos: [],
+  isPomodoroTimerStartable: true,
+  currentEditingTodoId: null,
+  currentTimerTargetId: null,
+})
+
+
+export const todoListReducer = createReducer(init)(
+  caseOf(
+    TODOLIST.OUTPUT.CHANGE,
+    (state, action) => {
+      const todos = action.payload.list
+      return { ...state, todos }
+    },
+  ),
+  caseOf(POMODORO_TIMER.OUTPUT.CHANGE, (state, action) => {
+    const { isWorking, isPausing } = action.payload
+    const isPomodoroTimerStartable = !isWorking && !isPausing
+    return { ...state, isPomodoroTimerStartable }
+  }),
+  caseOf(
+    APP_SESSION.OUTPUT.CHANGE,
+    (state, action) => {
+      const { currentTimerTarget } = action.payload
+      const currentTimerTargetId = currentTimerTarget ? currentTimerTarget.id : null
+      return { ...state, currentTimerTargetId }
+    },
+  ),
+  caseOf(
+    TODO_FORM.OUTPUT.CHANGE,
+    (state, action) => {
+      const { editingTodoId } = action.payload
+      const currentEditingTodoId = editingTodoId || null
+      return { ...state, currentEditingTodoId }
+    },
+  ),
+)
+
+
+//
+// ─── CONTEINER ──────────────────────────────────────────────────────────────────
+//
 export interface TodoListProps extends TodoListState {
   children: (props: TodoListProps, actions: TodolistActions) => React.ReactNode
   dispatch: Dispatch<any>
@@ -65,4 +117,4 @@ export class TodoListContainer extends React.Component<TodoListProps> {
   }
 }
 
-export default connectTodoListStore(TodoListContainer)
+export default connect(selectState)(TodoListContainer)

@@ -3,6 +3,7 @@ import { createEpicMiddleware, Epic } from 'redux-epic'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { identity } from '@cotto/utils.ts'
 import { PomodoroTimerStoreState, pomodoroTimerReducer } from '@/view/container/PomodoroTimerContainer'
+import { TodoListStoreState, todoListReducer } from '@/view/container/TodoListContainer'
 import { TodoEditFormStoreState, todoEditFormReducer } from '@/view/container/TodoEditFormContainer'
 import { TodoEntryFormStoreState, todoEntryFormReducer } from '@/view/container/TodoEntryFormContainer'
 
@@ -14,6 +15,7 @@ export type AppState =
   & PomodoroTimerStoreState
   & TodoEditFormStoreState
   & TodoEntryFormStoreState
+  & TodoListStoreState
 
 
 export default (rootEpic: Epic<AppState>) => {
@@ -23,6 +25,7 @@ export default (rootEpic: Epic<AppState>) => {
       pomodoroTimer: pomodoroTimerReducer,
       todoEditForm: todoEditFormReducer,
       todoEntryForm: todoEntryFormReducer,
+      todoList: todoListReducer,
     }),
     /* middleware */
     withDevtools(
