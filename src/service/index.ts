@@ -5,8 +5,8 @@ import { createRepsitoryGroup } from './shared'
 import { createDatabase, createInfraApi } from '@/infra'
 import { bootAppSessionService } from './app-session'
 import { bootPomodoroTimerAppService } from './pomodoro-timer'
-// import { bootToodsAppService } from './todos'
-// import { createAppSessionRepository, bootAppSessionService } from './app-session'
+import { bootTodoService } from './todo'
+import { bootTodoListService } from './todolist'
 export * from './shared'
 
 export const service = (ev: EventSource) => {
@@ -17,6 +17,8 @@ export const service = (ev: EventSource) => {
   return merge(
     bootAppSessionService(ev, repo),
     bootPomodoroTimerAppService(ev, repo),
+    bootTodoService(ev, repo, infraApi),
+    bootTodoListService(ev, repo),
   )
 }
 
