@@ -11,7 +11,7 @@ import { TODO_FORM, createTodoFormRepository } from '@/domain/todo-form'
 
 export const createRepsitoryGroup = () => ({
   appSession: createAppSessionRepository(),
-  pomodorTimer: createPomodoroTimerRepository(),
+  pomodoroTimer: createPomodoroTimerRepository(),
   todo: createTodoReposiory(),
   todolist: createTodoListRepository(),
   todoForm: createTodoFormRepository(),
