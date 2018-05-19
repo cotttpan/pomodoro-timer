@@ -2,7 +2,7 @@ import { factory } from 'command-bus'
 import { PomodoroTimerDomainState as S } from './entity'
 
 const input = factory('POMODORO_TIMER/INPUT/')
-const output = factory('POMODORO_TIMER/INPUT/')
+const output = factory('POMODORO_TIMER/OUTPUT/')
 
 export const INPUT = {
   START: input('START'),
