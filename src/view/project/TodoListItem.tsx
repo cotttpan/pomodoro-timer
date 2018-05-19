@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { pure } from 'recompose'
 import If from '@/view/utils/If'
-import { Todo } from '@/model/todos'
+import { Todo } from '@/domain/todo'
 import TodoEditForm from './TodoEditForm'
 import TodoCheckBox from './TodoCheckBox'
 
