@@ -2,10 +2,16 @@ import { merge } from 'rxjs'
 import { filter, map } from 'rxjs/operators'
 import { EventSource, select } from 'command-bus'
 import { existy } from '@cotto/utils.ts'
-import { RepositoryGroup, INTENTS, APP_SESSION, TODO } from './shared'
-import { appSessionService } from '@/domain/app-session'
+import { INTENTS, APP_SESSION, TODO } from './shared'
+import { appSessionService, AppSessionRepository } from '@/domain/app-session'
+import { TodoRepository } from '@/domain/todo'
 
-export const currentTimerTargetEpic = (ev: EventSource, repo: RepositoryGroup) => {
+export type RepoGroup = {
+  todo: TodoRepository,
+  appSession: AppSessionRepository,
+}
+
+export const currentTimerTargetEpic = (ev: EventSource, repo: RepoGroup) => {
   return merge(
     select(ev, INTENTS.POMODORO_TIMER_START).pipe(
       map(action => String(action.payload.todoId)),
@@ -25,6 +31,6 @@ export const currentTimerTargetEpic = (ev: EventSource, repo: RepositoryGroup) =
   )
 }
 
-export const bootAppSessionService = (ev: EventSource, repo: RepositoryGroup) => {
+export const bootAppSessionService = (ev: EventSource, repo: RepoGroup) => {
   return appSessionService(currentTimerTargetEpic(ev, repo), { repo: repo.appSession })
 }
