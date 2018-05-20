@@ -19,7 +19,7 @@ module.exports = {
     // vendor: ['react', 'react-dom', 'redux', 'dexie'],
   },
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'docs'),
     filename: '[name].bundle.js',
   },
   module: {
@@ -79,7 +79,7 @@ module.exports = {
   // },
   devtool: isProd ? 'none' : 'inline-source-map',
   devServer: {
-    contentBase: 'public',
+    contentBase: 'docs',
     historyApiFallback: true,
     noInfo: true,
     hot: true,

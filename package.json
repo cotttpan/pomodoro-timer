@@ -75,11 +75,11 @@
     "url": ""
   },
   "scripts": {
-    "server": "serve public",
+    "server": "serve docs",
     "bundle:dev": "NODE_ENV=development webpack --mode=development",
     "bundle:prod": "NODE_ENV=production webpack --mode=production",
-    "clean:js": "rimraf public/**/*.bundle.js",
-    "clean:css": "rimraf public/**/*.bundle.css",
+    "clean:js": "rimraf docs/**/*.bundle.js",
+    "clean:css": "rimraf docs/**/*.bundle.css",
     "clean": "run-p clean:**",
     "start": "NODE_ENV=development webpack-dev-server --mode=development",
     "test": "NODE_EVN=test jest",
