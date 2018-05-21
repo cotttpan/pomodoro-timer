@@ -1,6 +1,6 @@
 # App
 
-https://cotttpan.github.io/pomodoro-timer/
+https://nullabletypo.github.io/pomodoro-timer/
 
 # Build
 
@@ -13,4 +13,4 @@ yarn run server
 
 # Refs
 
-* https://github.com/cotttpan/pomodoro-timer-react-redux-rx-example
+* https://github.com/nullabletypo/pomodoro-timer-react-redux-rx-example
